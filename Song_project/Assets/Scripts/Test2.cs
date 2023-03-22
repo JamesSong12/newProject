@@ -32,6 +32,7 @@ public class Test2 : MonoBehaviour
         // =======================================================
 
         textHpUI.text = hp.ToString();
+
         if (hp <= 50)
         {
             textStateUI.text = "Run!!";
