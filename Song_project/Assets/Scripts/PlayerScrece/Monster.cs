@@ -9,9 +9,10 @@ public class Monster : MonoBehaviour
     public void Damaged(int Damage)
     {
         Hp -= Damage;
+        GameObject temp = this.gameObject;
         if(Hp <= 0)
         {
-            GameObject temp = this.gameObject;
+            
             Destroy(this.temp);
         }
     }

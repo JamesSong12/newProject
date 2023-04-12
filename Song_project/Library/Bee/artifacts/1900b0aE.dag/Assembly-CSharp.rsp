@@ -355,6 +355,7 @@
 "Assets/Scripts/PlayerScrece/PlayerController.cs"
 "Assets/Scripts/PlayerScrece/ProjectileController.cs"
 "Assets/Scripts/PlayerScrece/ProjectileMove.cs"
+"Assets/Scripts/PlayerScrece/TriggerExample.cs"
 "Assets/Scripts/SwipeSystem.cs"
 "Assets/Scripts/Test.cs"
 "Assets/Scripts/Test2.cs"
