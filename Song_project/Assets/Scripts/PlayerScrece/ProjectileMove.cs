@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileMove : MonoBehaviour
-{
-    public Vector3 IaunchDirection;
+{ 
+
+    public enum PROJECTILETYPE
+    {
+        PLAYER,
+        MONSTER
+    }
+    public Vector3 launchDirection;
+
+    public PROJECTILETYPE projectileType;
+
+
     // Start is called before the first frame update
     private void FixedUpdate()
     {
         float moveAmount = 3 * Time.fixedDeltaTime;
-        transform.Translate(IaunchDirection * moveAmount);
+        transform.Translate(launchDirection * moveAmount);
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+   /* private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name);
         if(collision.gameObject.tag == "Object")
@@ -25,14 +35,19 @@ public class ProjectileMove : MonoBehaviour
             Destroy(this.gameObject);
             collision.gameObject.GetComponent<Monster>().Damaged(1);
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Monster") && projectileType == PROJECTILETYPE.PLAYER)
         {
             Destroy(this.gameObject);
             other.gameObject.GetComponent<Monster>().Damaged(1);
+        }
+        if(other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)
+        {
+            Destroy(this.gameObject);
+            other.gameObject.GetComponent<PlayerHp>().Damaged(1);
         }
     }
 }

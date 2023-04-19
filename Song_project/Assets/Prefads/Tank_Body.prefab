@@ -93,6 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7874218623522698077}
   - component: {fileID: 4658775617649660376}
+  - component: {fileID: 5499702182760016277}
+  - component: {fileID: 919132148723067512}
+  - component: {fileID: 919132148723067513}
   m_Layer: 0
   m_Name: Tank_Body
   m_TagString: Player
@@ -107,7 +110,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7353543331330501095}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.07999998, y: 0.8, z: 1.6199999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -134,6 +137,50 @@ MonoBehaviour:
   viewCamera: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   projectileController: {fileID: 4594086910956045861}
+--- !u!114 &5499702182760016277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353543331330501095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8d2b25f25263548abc8288aafd1ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temp: {fileID: 7353543331330501095}
+  Hp: 5
+--- !u!54 &919132148723067512
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353543331330501095}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &919132148723067513
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353543331330501095}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &7695632942433042547
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6a500ce739d5b4843bbcabed1de1549b, type: 3}
       propertyPath: m_Name
-      value: gun
+      value: Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a500ce739d5b4843bbcabed1de1549b, type: 3}
@@ -241,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IaunchDirection: {x: 0, y: 0, z: 0}
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 4900019754340861768, guid: d81975662bee3b042aa4c922eab36bcb, type: 3}
 --- !u!4 &7874218623190460869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6a500ce739d5b4843bbcabed1de1549b, type: 3}
