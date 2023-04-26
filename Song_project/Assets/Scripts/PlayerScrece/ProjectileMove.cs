@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileMove : MonoBehaviour
-{ 
-
-    public enum PROJECTILETYPE
+{     public enum PROJECTILETYPE
     {
         PLAYER,
         MONSTER
@@ -23,31 +21,23 @@ public class ProjectileMove : MonoBehaviour
 
     }
 
-   /* private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.gameObject.name);
-        if(collision.gameObject.tag == "Object")
-        {
-            Destroy(this.gameObject);
-        }
-        if (collision.gameObject.tag == "Monster")
-        {
-            Destroy(this.gameObject);
-            collision.gameObject.GetComponent<Monster>().Damaged(1);
-        }
-    }*/
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster") && projectileType == PROJECTILETYPE.PLAYER)
         {
             Destroy(this.gameObject);
             other.gameObject.GetComponent<Monster>().Damaged(1);
+            GameObject Temp = GameObject.FindGameObjectWithTag("GameManager");
+            Temp.GetComponent<HUDTextManager>().UpdateHUDTextSet("1", other.gameObject, new Vector3(0.0f, 10.0f, 0.0f));
+          
         }
-        if(other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)
+        if (other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)
         {
             Destroy(this.gameObject);
             other.gameObject.GetComponent<PlayerHp>().Damaged(1);
+            GameObject Temp = GameObject.FindGameObjectWithTag("GameManager");
+            Temp.GetComponent<HUDTextManager>().UpdateHUDTextSet("1", other.gameObject, new Vector3(0.0f, 10.0f, 0.0f));
+
         }
     }
 }

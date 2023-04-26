@@ -116,6 +116,7 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/Plugins/Demigiant/DOTween/DOTween.dll"
 -r:"C:/Program Files/Unity 2021.2.17f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity 2021.2.17f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
 -r:"C:/Program Files/Unity 2021.2.17f1/Editor/Data/Managed/UnityEngine/UnityEditor.DiagnosticsModule.dll"
@@ -321,6 +322,7 @@
 -r:"C:/Program Files/Unity 2021.2.17f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
 -r:"C:/Users/shingu-103/newProject/Song_project/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
 -r:"C:/Users/shingu-103/newProject/Song_project/Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Tilemap.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Tilemap.Extras.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Tilemap.Extras.ref.dll"
@@ -353,6 +355,8 @@
 "Assets/Scripts/GameDirector.cs"
 "Assets/Scripts/PlayerScrece/EnemyController.cs"
 "Assets/Scripts/PlayerScrece/GenManager.cs"
+"Assets/Scripts/PlayerScrece/HUDMove.cs"
+"Assets/Scripts/PlayerScrece/HUDTextManager.cs"
 "Assets/Scripts/PlayerScrece/Monster.cs"
 "Assets/Scripts/PlayerScrece/PlayerController.cs"
 "Assets/Scripts/PlayerScrece/PlayerHp.cs"
@@ -364,6 +368,7 @@
 "Assets/Scripts/Test2.cs"
 "Assets/Scripts/Test_Class.cs"
 "Assets/Scripts/TileMap.cs"
+"Assets/Scripts/Tween/TweenTest.cs"
 -langversion:9.0
 
 /deterministic
