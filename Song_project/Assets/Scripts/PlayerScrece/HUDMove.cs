@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI;       //UI 사용하기 위해
 
 public class HUDMove : MonoBehaviour
 {
@@ -14,12 +14,12 @@ public class HUDMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject, 5.0f);
+        Destroy(this.gameObject, 5.0f);         //5초 정도만 표시 되게 
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.localPosition += new Vector3(0.0f, 1.0f, 0.0f);
+        this.gameObject.transform.localPosition += new Vector3(0.0f, 0.2f, 0.0f);
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Vector3 IaunchDirection;
+    public Vector3 launchDirection;
     public GameObject Projectile;
-   public void FireProjectile()
-   {
-      
+    
+    public void FireProjectile()
+    {
+
         GameObject temp = (GameObject)Instantiate(Projectile);
 
         temp.transform.position = this.gameObject.transform.position;
@@ -17,6 +17,7 @@ public class ProjectileController : MonoBehaviour
         temp.GetComponent<ProjectileMove>().launchDirection = transform.forward;
         temp.GetComponent<ProjectileMove>().projectileType = ProjectileMove.PROJECTILETYPE.PLAYER;
 
-        Destroy(temp, 10.0f);
-   }
+        Destroy(temp, 10.0f);                   //10초후에 생성된 발사채 삭제
+
+    }
 }

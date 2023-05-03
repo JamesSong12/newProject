@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class PlayerHp : MonoBehaviour
 {
-
-    public GameObject temp;
     public int Hp = 5;
     public void Damaged(int Damage)
     {
         Hp -= Damage;
-        GameObject temp = this.gameObject;
         if (Hp <= 0)
         {
-            Destroy(this.temp);
+            GameObject temp = this.gameObject;
+            Destroy(temp);
         }
     }
 }
-
