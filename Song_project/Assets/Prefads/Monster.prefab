@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a624e9afba84554c906bb281a426c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundExplisionProfileData: {fileID: 11400000, guid: 2de218fa95396e445a6d359d4726de90, type: 2}
   Hp: 5
 --- !u!65 &4367026898074642105
 BoxCollider:

@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class BlockMove : MonoBehaviour
 {
-
     public bool move = false;
     public float blockMoveTime = 0.3f;
-    public float bolckMoveSpeed = 2.0f;
-    // Start is called before the first frame update
+    public float blockMoveSpeed = 2.0f;
+
     private IEnumerator moveBlockTime(Vector3 dir)
     {
         move = true;
         float elapsedTime = 0.0f;
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = currentPosition + dir;
-
         while(elapsedTime < blockMoveTime)
         {
             transform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / blockMoveTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         transform.position = transform.position;
         move = false;
     }
