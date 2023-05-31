@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;               // UI 추가 
 using System;                       // 추가 
+using UnityEngine.SceneManagement;                  //유니티 Scene 이동을 위해서 가져옴
 
 public class GameManager : MonoBehaviour
 {
@@ -58,12 +59,29 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
         Init();
     }
+
+    private void OnDestroy()    //이 오브젝트가 파괴될 경우
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;  //이벤트를 삭제한다. 
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "GameScene")
+        {
+            Init();           
+        }
+    }
+
     private void Init()
     {
         playerHp = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHp>();                     //Tag로 오브젝트를 찾는다.
         playerHpUIImage = GameObject.FindGameObjectWithTag("UIHealthBar").GetComponent<Image>();            //Tag로 UI를 찾는다.
+        playerHp.Hp = 100;
+        CurrentState = GameState.Start;
     }
     private void Update()
     {
