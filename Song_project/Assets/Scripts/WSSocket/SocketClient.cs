@@ -1,73 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WebSocketSharp;               //C# 에서 웹 소캣을 지원하는 라이브러리
+using WebSocketSharp;              
 using System.Text;
-using Newtonsoft.Json;              //JSON 을 사용하기위한 라이브러리 
+using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class MyData
 {
-    public string clientID;                     //서버에서 제작 해서 클라이언트에 접속시 줌
+    public string clientID;                    
     public string message;
-    public int requestType;                     // 요청 번호 json로 보냄
+    public int requestType;                     
+}
+
+public class InfoData
+{
+    public string type;
+    public InfoParams myParams;
+}
+
+public class InfoParams
+{
+    public string room;
+    public int !oopTimeCount;
 }
 
 public class SocketClient : MonoBehaviour
 {
     private WebSocket webSocket;
     private bool isConnected = false;
-    private int connectionAttempt = 0;              // 연결 시도 횟수 
-    private const int maxConnectionAttempts = 3;    // 최대 연결 시도 횟수
+    private int connectionAttempt = 0;             
+    private const int maxConnectionAttempts = 3;   
 
     MyData sendData = new MyData { message = "메세지 전송" };
 
-    // Start is called before the first frame update
+    public Button sendButton;
+    public Button ReconnectButton;
+    public Text typeText;
+    public Text messageText;
+    public text uiLoopCountText;
+
+    public int loopCount;
+
     void Start()
     {
         ConnectWebSocekt();
+
+        sendButton.onClick.AddListener(() =>
+        {
+            sendData.reqiest = int.Parse(typeText.text);
+            sendData.message = messageText.text;
+            string jsonData = JsonConvert.SerializeObject(sendData);
+
+            webSocket.Send(jsonData);
+
+        });
+
+        ReconnectButton.onClick.AddListener(() =>
+        {
+            ConnectWebSocekt();
+        });
     }
 
     void ConnectWebSocekt()
     {
-        webSocket = new WebSocket("ws://localhost:8000");           //localhost 127.0.0.1 port : 8000 , ws => websocket
-        webSocket.OnOpen += OnWebSocketOpen;                        //웹 소캣이 연결 되었을 때 이벤트를 발생시켜서 함수를 실행 시킨다. 
-        webSocket.OnMessage += OnWebSocketMessage;                  //웹 소캣 메세지가 왔을 때 이벤트를 발생시켜 Message 함수를 실행 시킨다.
-        webSocket.OnClose += OnWebSocketClose;                      //웹 소캣 연결이 끊어졌을때 이벤트를 발생시켜 Close 함수를 실행 시킨다. 
+        webSocket = new WebSocket("ws://localhost:8000");           
+        webSocket.OnOpen += OnWebSocketOpen;                        
+        webSocket.OnMessage += OnWebSocketMessage;                 
+        webSocket.OnClose += OnWebSocketClose;                      
 
         webSocket.ConnectAsync();
     }
 
-    void OnWebSocketOpen(object sender, System.EventArgs e)         //웹 소캣이 오픈되고 연결 되었을 때 
+    void OnWebSocketOpen(object sender, System.EventArgs e)       
     {
         Debug.Log("WebSocket connected");
         isConnected = true;
         connectionAttempt = 0;
     }
 
-    void OnWebSocketMessage(object sender, MessageEventArgs e)      //웹 소캣이 연결된후 Message가 왔을 때 
+    void OnWebSocketMessage(object sender, MessageEventArgs e)     
     {
-        string jsonData = Encoding.Default.GetString(e.RawData);    //MessageEventArgs에 들어온 RawData를 Json으로 인코딩 한다. 
+        string jsonData = Encoding.Default.GetString(e.RawData);    
         Debug.Log("Received JSON data : " + jsonData);
 
-        MyData receivedData = JsonConvert.DeserializeObject<MyData>(jsonData);          //JSON 데이터를 객체로 역직렬화
+        MyData receivedData = JsonConvert.DeserializeObject<MyData>(jsonData);      
+        
+        InfoData infoData = JsonConvert.DeserializeObject<InfoData>(jsonData);
 
-        if (receivedData != null && !string.IsNullOrEmpty(receivedData.clientID))        //receivedData 값이 비어 있지 않을 때
+        if(infoData != null)
         {
-            sendData.clientID = receivedData.clientID;                                  //서버에서 받아온 ID 값을 MyData에 넣는다. 
+            string room = infoData.myParams.room;
+            loopCount = infoData.myParams.loopTimeCount;
+        }
+
+        if (receivedData != null && !string.IsNullOrEmpty(receivedData.clientID))
+        {
+            sendData.clientID = receivedData.clientID;                                 
         }
 
     }
 
-    void OnWebSocketClose(object sender, CloseEventArgs e)              //웹 소캣 연결이 끊겼을 떄
+    void OnWebSocketClose(object sender, CloseEventArgs e)             
     {
         Debug.Log("WebSocket connection closed");
-        isConnected = false;                                            //연결 끈김 flag 
+        isConnected = false;                                           
 
-        if (connectionAttempt < maxConnectionAttempts)                   //총 3번의 시도 
+        if (connectionAttempt < maxConnectionAttempts)                  
         {
             connectionAttempt++;
             Debug.Log("Attempting to reconnect. Attempt : " + connectionAttempt);
-            ConnectWebSocekt();                                                         //Connect 시도를 한다.
+            ConnectWebSocekt();                                                        
         }
         else
         {
@@ -75,12 +118,12 @@ public class SocketClient : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()                        //프로그램 종료시에 호출 되는 함수 
+    void OnApplicationQuit()                       
     {
         DisconnectWebSocket();
     }
 
-    void DisconnectWebSocket()                      //연결된 socket를 Relese 해준다. 
+    void DisconnectWebSocket()                     
     {
         if (webSocket != null && isConnected)
         {
@@ -97,12 +140,16 @@ public class SocketClient : MonoBehaviour
             return;
         }
 
+        uiLoopCountText.text = "LoopCount : " + loopCount.ToString()
+            ;
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            sendData.requestType = 10;
-            string jsonData = JsonConvert.SerializeObject(sendData);
+            sendData.requestType = 0;
+            string jsonData = JsonConvert.SerializeObject(sendData);                
 
             webSocket.Send(jsonData);
+
         }
     }
 }
